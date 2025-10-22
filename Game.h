@@ -19,18 +19,20 @@ private:
 	sf::Sprite bg_sprite, ground_sprite1, ground_sprite2;
 	sf::Clock clock;
 	Bird bird;
-	bool is_game_over, is_space_pressed,run_game;
+	bool is_game_over, is_space_pressed,run_game, start_monitoring;
 	const int move_speed = 270;
 	void drawBackground();
 	void moveGround(sf::Time& dt);
 	void doProcessing(sf::Time &dt);
 	void checkCollisions();
 	void restartGame();
-	int pipe_spawn_timer,pipe_counter;
+	void checkScore();
+	int pipe_spawn_timer,pipe_counter,score;
 	std::vector<Pipe> pipes;
 	std::random_device rd;
 	std::uniform_int_distribution<int> dist{ 150, WIN_HEIGHT - 250 };
 	sf::Font font;
-	sf::Text game_over_text;
+	sf::Text game_over_text, score_text;
+	std::string score_string(int);
 };
 

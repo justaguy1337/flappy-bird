@@ -2,8 +2,8 @@
 #include "Bird.h"
 #include "Global.h"
 Bird::Bird():
-	gravity(15),
-	flap_speed(400),
+	gravity(20),
+	flap_speed(450),
 	animation_counter(0),
 	texture_switch(0),
 	should_fly(false)

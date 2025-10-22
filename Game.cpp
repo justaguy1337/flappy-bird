@@ -1,11 +1,14 @@
 #include "Game.h"
 #include "Global.h"
+#include <sstream>
 
 Game::Game(sf::RenderWindow& window) : win(window),
 is_space_pressed(false), 
 run_game(true),
 pipe_counter(71),
-pipe_spawn_timer(70)
+pipe_spawn_timer(70),
+score(0),
+start_monitoring(false)
 {
 	win.setFramerateLimit(90);
 	bg_texture.loadFromFile("assets/bg.png");
@@ -29,6 +32,12 @@ pipe_spawn_timer(70)
 	game_over_text.setFillColor(sf::Color::Black);
 	game_over_text.setPosition(WIN_WIDTH / 2 - 230, WIN_HEIGHT / 2 - 100);
 	game_over_text.setString("					Game Over!\nPress	R	to	Restart");
+
+	score_text.setFont(font);
+	score_text.setCharacterSize(25);
+	score_text.setFillColor(sf::Color::Black);
+	score_text.setPosition(10, 10);
+	score_text.setString("Score		0");
 	Pipe::loadTextures();
 }
 void Game::doProcessing(sf::Time& dt)
@@ -50,6 +59,7 @@ void Game::doProcessing(sf::Time& dt)
 			}
 		}
 		checkCollisions();
+		checkScore();
 	}
 	bird.updateBird(dt);
 }
@@ -74,6 +84,9 @@ void Game::startGameLoop()
 				if(event.key.code == sf::Keyboard::R) {
 					restartGame();
 				}
+				if(event.key.code == sf::Keyboard::Escape) {
+					win.close();
+				}
 			}
 		}
 		doProcessing(dt);
@@ -93,6 +106,7 @@ void Game::drawBackground()
 	win.draw(ground_sprite1);
 	win.draw(ground_sprite2);
 	win.draw(bird.bird_sprite);
+	win.draw(score_text);
 
 	if(!run_game) {
 		win.draw(game_over_text);
@@ -135,4 +149,37 @@ void Game ::restartGame()
 	is_space_pressed = false;
 	pipe_counter = 71;
 	pipes.clear();
+	score_text.setString("Score		0");
+	score = 0;
+}
+
+void Game::checkScore()
+{
+	if (pipes.size() > 0)
+	{
+		if (!start_monitoring)
+		{
+			if (bird.bird_sprite.getGlobalBounds().left > pipes[0].sprite_down.getGlobalBounds().left &&
+				bird.getRightBounds() < pipes[0].getRightBound())
+			{
+				start_monitoring = true;
+			}
+		}
+		else
+		{
+			if (bird.bird_sprite.getGlobalBounds().left > pipes[0].getRightBound())
+			{
+				score++;
+				score_text.setString("Score		" + score_string(score));
+				start_monitoring = false;
+			}
+		}
+	}
+}
+
+std::string Game::score_string(int score)
+{
+	std::stringstream ss;
+	ss << score;
+	return ss.str();
 }
