@@ -1,5 +1,5 @@
-#include "Pipe.h"
-#include "Global.h"
+#include "header/Pipe.h"
+#include "header/Global.h"
 Pipe::Pipe(int y_pos) {
 	sprite_down.setTexture(texture_down);
 	sprite_up.setTexture(texture_up);

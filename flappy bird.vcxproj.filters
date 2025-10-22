@@ -15,30 +15,30 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="src\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bird.cpp">
+    <ClCompile Include="src\Bird.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Pipe.cpp">
+    <ClCompile Include="src\Pipe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Global.h">
+    <ClInclude Include="header\Global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="header\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bird.h">
+    <ClInclude Include="header\Bird.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Pipe.h">
+    <ClInclude Include="header\Pipe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

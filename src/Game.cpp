@@ -1,5 +1,5 @@
-#include "Game.h"
-#include "Global.h"
+#include "header/Game.h"
+#include "header/Global.h"
 #include <sstream>
 
 Game::Game(sf::RenderWindow& window) : win(window),

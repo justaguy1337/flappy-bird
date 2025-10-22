@@ -1,6 +1,6 @@
 
-#include "Bird.h"
-#include "Global.h"
+#include "header/Bird.h"
+#include "header/Global.h"
 Bird::Bird():
 	gravity(20),
 	flap_speed(450),

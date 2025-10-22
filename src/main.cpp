@@ -1,6 +1,6 @@
 #include<SFML/Graphics.hpp>
-#include "Global.h"
-#include "Game.h"
+#include "header/Global.h"
+#include "header/Game.h"
 
 int main(){
 	sf::RenderWindow window(sf::VideoMode(WIN_WIDTH, WIN_HEIGHT), "Flappy Bird");
