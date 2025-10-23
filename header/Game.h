@@ -32,7 +32,7 @@ private:
 	std::random_device rd;
 	std::uniform_int_distribution<int> dist{ 150, WIN_HEIGHT - 250 };
 	sf::Font font;
-	sf::Text game_over_text, score_text;
+	sf::Text game_over_text, score_text, start_game;
 	std::string score_string(int);
 };
 

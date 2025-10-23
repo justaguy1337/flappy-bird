@@ -38,6 +38,13 @@ start_monitoring(false)
 	score_text.setFillColor(sf::Color::Black);
 	score_text.setPosition(10, 10);
 	score_text.setString("Score		0");
+
+	start_game.setFont(font);
+	start_game.setCharacterSize(50);
+	start_game.setFillColor(sf::Color::Black);
+	start_game.setPosition(WIN_WIDTH / 2 - 270, WIN_HEIGHT / 2 - 100);
+	start_game.setString("					Flappy Bird!\nPress	Space	to	Start");
+
 	Pipe::loadTextures();
 }
 void Game::doProcessing(sf::Time& dt)
@@ -61,6 +68,7 @@ void Game::doProcessing(sf::Time& dt)
 		checkCollisions();
 		checkScore();
 	}
+
 	bird.updateBird(dt);
 }
 void Game::startGameLoop()
@@ -99,19 +107,25 @@ void Game::startGameLoop()
 void Game::drawBackground()
 {
 	win.draw(bg_sprite);
+
 	for (Pipe& pipe : pipes) {
 		win.draw(pipe.sprite_down);
 		win.draw(pipe.sprite_up);
 	}
+
 	win.draw(ground_sprite1);
 	win.draw(ground_sprite2);
 	win.draw(bird.bird_sprite);
 	win.draw(score_text);
 
-	if(!run_game) {
+	if (!run_game) {
 		win.draw(game_over_text);
 	}
+	else if (!is_space_pressed) {
+		win.draw(start_game);
+	}
 }
+
 
 void Game::moveGround(sf::Time& dt)
 {

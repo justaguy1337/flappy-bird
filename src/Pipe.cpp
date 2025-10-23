@@ -23,4 +23,4 @@ double Pipe::getRightBound() {
 	return sprite_down.getGlobalBounds().left + sprite_down.getGlobalBounds().width;
 }
 sf::Texture Pipe::texture_up, Pipe::texture_down;
-int Pipe::pipe_distance = 200, Pipe::move_speed = 400;
+int Pipe::pipe_distance = 250, Pipe::move_speed = 430;
