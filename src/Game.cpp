@@ -2,18 +2,18 @@
 #include "header/Global.h"
 #include <sstream>
 
-Game::Game(sf::RenderWindow& window) : win(window),
-is_space_pressed(false), 
-run_game(true),
-pipe_counter(71),
-pipe_spawn_timer(70),
-score(0),
-start_monitoring(false)
+Game::Game(sf::RenderWindow &window) : win(window),
+									   is_space_pressed(false),
+									   run_game(true),
+									   pipe_counter(71),
+									   pipe_spawn_timer(70),
+									   score(0),
+									   start_monitoring(false)
 {
 	win.setFramerateLimit(90);
 	bg_texture.loadFromFile("assets/bg.png");
 	bg_sprite.setTexture(bg_texture);
-	bg_sprite.setScale(SCALE_FACTOR,SCALE_FACTOR);
+	bg_sprite.setScale(SCALE_FACTOR, SCALE_FACTOR);
 	bg_sprite.setPosition(0, -250);
 
 	ground_texture.loadFromFile("assets/ground.png");
@@ -25,7 +25,7 @@ start_monitoring(false)
 
 	ground_sprite1.setPosition(0, WIN_HEIGHT - ground_sprite1.getGlobalBounds().height);
 	ground_sprite2.setPosition(ground_sprite1.getGlobalBounds().width, WIN_HEIGHT - ground_sprite1.getGlobalBounds().height);
-	
+
 	font.loadFromFile("assets/arcadeclassic.ttf");
 	game_over_text.setFont(font);
 	game_over_text.setCharacterSize(50);
@@ -47,20 +47,24 @@ start_monitoring(false)
 
 	Pipe::loadTextures();
 }
-void Game::doProcessing(sf::Time& dt)
+void Game::doProcessing(sf::Time &dt)
 {
-	if(is_space_pressed) {
+	if (is_space_pressed)
+	{
 		moveGround(dt);
 
-		if(pipe_counter> pipe_spawn_timer) {
+		if (pipe_counter > pipe_spawn_timer)
+		{
 			pipes.push_back(Pipe(dist(rd)));
 			pipe_counter = 0;
 		}
 		pipe_counter++;
 
-		for(int i=0;i<pipes.size();i++) {
+		for (int i = 0; i < pipes.size(); i++)
+		{
 			pipes[i].update(dt);
-			if(pipes[i].getRightBound() < 0) {
+			if (pipes[i].getRightBound() < 0)
+			{
 				pipes.erase(pipes.begin() + i);
 				i--;
 			}
@@ -73,33 +77,41 @@ void Game::doProcessing(sf::Time& dt)
 }
 void Game::startGameLoop()
 {
-	while (win.isOpen()) {
+	while (win.isOpen())
+	{
 		sf::Time dt = clock.restart();
 		sf::Event event;
-		while (win.pollEvent(event)) {
+		while (win.pollEvent(event))
+		{
 			if (event.type == sf::Event::Closed)
 				win.close();
-			if (event.type == sf::Event::KeyPressed && run_game) {
-				if (event.key.code == sf::Keyboard::Space && !is_space_pressed) {
+			if (event.type == sf::Event::KeyPressed && run_game)
+			{
+				if (event.key.code == sf::Keyboard::Space && !is_space_pressed)
+				{
 					is_space_pressed = true;
 					bird.setShouldFly(true);
 				}
-				if(event.key.code == sf::Keyboard::Space && is_space_pressed) {
+				if (event.key.code == sf::Keyboard::Space && is_space_pressed)
+				{
 					bird.flapBird(dt);
 				}
 			}
-			if(event.type == sf::Event::KeyPressed && !run_game) {
-				if(event.key.code == sf::Keyboard::R) {
+			if (event.type == sf::Event::KeyPressed && !run_game)
+			{
+				if (event.key.code == sf::Keyboard::R)
+				{
 					restartGame();
 				}
-				if(event.key.code == sf::Keyboard::Escape) {
+				if (event.key.code == sf::Keyboard::Escape)
+				{
 					win.close();
 				}
 			}
 		}
 		doProcessing(dt);
 		drawBackground();
-		
+
 		win.display();
 	}
 }
@@ -108,7 +120,8 @@ void Game::drawBackground()
 {
 	win.draw(bg_sprite);
 
-	for (Pipe& pipe : pipes) {
+	for (Pipe &pipe : pipes)
+	{
 		win.draw(pipe.sprite_down);
 		win.draw(pipe.sprite_up);
 	}
@@ -118,16 +131,17 @@ void Game::drawBackground()
 	win.draw(bird.bird_sprite);
 	win.draw(score_text);
 
-	if (!run_game) {
+	if (!run_game)
+	{
 		win.draw(game_over_text);
 	}
-	else if (!is_space_pressed) {
+	else if (!is_space_pressed)
+	{
 		win.draw(start_game);
 	}
 }
 
-
-void Game::moveGround(sf::Time& dt)
+void Game::moveGround(sf::Time &dt)
 {
 	ground_sprite1.move(-move_speed * dt.asSeconds(), 0);
 	ground_sprite2.move(-move_speed * dt.asSeconds(), 0);
@@ -139,8 +153,9 @@ void Game::moveGround(sf::Time& dt)
 
 void Game::checkCollisions()
 {
-	if (!pipes.empty()) {
-		const auto& pipe = pipes[0];
+	if (!pipes.empty())
+	{
+		const auto &pipe = pipes[0];
 		const auto birdBounds = bird.bird_sprite.getGlobalBounds();
 		double groundY = WIN_HEIGHT * 3 / 4;
 		if (pipe.sprite_down.getGlobalBounds().intersects(birdBounds) ||
@@ -153,7 +168,6 @@ void Game::checkCollisions()
 		}
 	}
 }
-
 
 void Game ::restartGame()
 {

@@ -14,9 +14,8 @@ public:
 	sf::Sprite bird_sprite;
 	Bird();
 	void setShouldFly(bool val);
-	void flapBird(sf::Time&dt);
+	void flapBird(sf::Time &dt);
 	void resetBirdPosition();
-	void updateBird(sf::Time& dt);
+	void updateBird(sf::Time &dt);
 	double getRightBounds();
 };
-

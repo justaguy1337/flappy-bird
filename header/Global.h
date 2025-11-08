@@ -1,4 +1,4 @@
 #pragma once
 
-constexpr int WIN_WIDTH = 600, WIN_HEIGHT=768;
+constexpr int WIN_WIDTH = 600, WIN_HEIGHT = 768;
 constexpr double SCALE_FACTOR = 1.5;
