@@ -23,20 +23,50 @@ A C++ implementation of the classic Flappy Bird game with simple graphics and in
 ### Linux (Ubuntu/Debian)
 ```bash
 sudo apt update
-sudo apt install build-essential libsfml-dev
-g++ src/*.cpp -I. -o flappy.exe -lsfml-graphics -lsfml-window -lsfml-system
-./flappy.exe
-```
-
-### CMake
-```
+sudo apt install build-essential libsfml-dev cmake
 mkdir build
 cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
-cmake --build . --config Release -j$(nproc)
-cd bin
+make -j$(nproc)
 ./flappy
 ```
 
-### Windows
-- Use Visual Studio
+### Linux (Fedora)
+```bash
+sudo dnf install gcc-c++ SFML-devel cmake
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+make -j$(nproc)
+./flappy
+```
+
+### macOS
+```bash
+brew install sfml cmake
+mkdir build
+cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+make -j$(sysctl -n hw.ncpu)
+./flappy
+```
+
+### Windows (Visual Studio)
+```bash
+# Install SFML, then:
+mkdir build
+cd build
+cmake .. -G "Visual Studio 17 2022"
+cmake --build . --config Release
+.\Release\flappy.exe
+```
+
+### Windows (MinGW)
+```bash
+# Install SFML and MinGW, then:
+mkdir build
+cd build
+cmake .. -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release
+cmake --build .
+.\flappy.exe
+```
